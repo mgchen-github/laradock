@@ -382,6 +382,7 @@ services:
         - ${NGINX_SSL_PATH}:/etc/nginx/ssl
       ports:
         - "1041:1041" # rhinoshield-demo
+        - "1042:1042" # onramp-demo
         - "4000:4000" # demo1
         - "4001:4001" # demo2
         - "5051:5051" # dessert-ec-demo
