@@ -1319,9 +1319,18 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
     echo "/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1" > /etc/ld.so.preload \
 ;fi
 
+# mg
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev imagemagick && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick
+
 # Configure locale.
 ARG LOCALE=POSIX
 ENV LC_ALL ${LOCALE}
+
+## adding composer
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /var/www
 
