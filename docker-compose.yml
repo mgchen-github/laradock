@@ -183,6 +183,7 @@ services:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
         - docker-in-docker:/certs/client
         - ./php-worker/supervisord.d:/etc/supervisord.d
+        - ../CTWANT/tmp-files:/tmp
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
@@ -546,7 +547,7 @@ services:
       ports:
         - "1041:1041" # rhinoshield-demo
         - "1042:1042" # onramp-demo
-        - "4000:4000" # demo1
+        - "4444:4444" # demo1
         - "4001:4001" # demo2
         - "5051:5051" # dessert-ec-demo
         - "8081:8081" # cms-api
