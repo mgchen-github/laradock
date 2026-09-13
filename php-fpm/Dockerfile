@@ -33,13 +33,19 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
     sed -i 's/security-cdn.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 ;fi
 
+RUN printf '%s\n' \
+    'deb http://snapshot.debian.org/archive/debian/20260820T000000Z bullseye main' \
+    'deb http://snapshot.debian.org/archive/debian-security/20260820T000000Z bullseye-security main' \
+    > /etc/apt/sources.list \
+    && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
+
 # always run apt update when start and after add new source list, then clean up at end.
 RUN set -xe; \
     apt-get update -yqq && \
     pecl channel-update pecl.php.net && \
-    apt-get install -yqq \
+    apt-get install -yqq --allow-downgrades --allow-remove-essential --allow-change-held-packages \
       apt-utils \
-      gnupg2 \
+      #gnupg2 \
       git \
       #
       #--------------------------------------------------------------------------
