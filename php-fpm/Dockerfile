@@ -1322,7 +1322,7 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
 # mg
 RUN apt-get update && apt-get install -y \
     libmagickwand-dev imagemagick && \
-    pecl install imagick && \
+    pecl install imagick || true && docker-php-ext-enable imagick && \
     docker-php-ext-enable imagick
 
 # Configure locale.
